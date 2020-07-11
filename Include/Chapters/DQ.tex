@@ -1,0 +1,50 @@
+%!TEX root = ../../main.tex
+\chapter{dq-algebras and dq-algebroids}\label{ch:DQ}
+\section{Star products}
+\todo{some words on history...}
+\begin{definition}[{\cite{BFFLS}, \cite[Definition~2.2.2.]{DQM}}]\label{def:star-product}
+	An associative operation $\star$ on $\mathscr{O}_{X}[[\hbar]]$ is a \textit{star product} if it is $\C[[\hbar]]$-bilinear and satisfies
+	\begin{align}\label{eqn:star-product}
+		f \star g = \sum_{i\geq 0} P_{i}(f,g)\hbar^{i} \quad \text{for } f,g\in \mathscr{O}_{X}
+	\end{align}
+	where the $P_{i}$'s are bi-differential operators such that $P_{0}(f, g)=fg$ and $P_{i}(f, 1)=P_{i}(1, f)=0$ for all $f \in \mathscr{O}_{X}$ and $i>0 .$ We call $\left(\mathscr{O}_{X}[[\hbar]], \star\right)$ a \textit{star algebra}.
+\end{definition}
+\todo{the previous probably needs some background on differential operators...}
+\subsection{Moyal-Weyl star product}
+\begin{definition}\label{def:weyl-moyal}
+	Let $X = \mathbb{R}^{2n}$ endowed with its standard symplectic structure. We define the \textit{Moyal-Weyl} $\star$-\textit{product} by the rule
+    \begin{align}\label{eqn:weyl-moyal-free}
+    	f \star g=\operatorname{prod}\left(\exp \left(\frac{i\hbar}{2}\Pi\right)(f \otimes g)\right)
+    \end{align}
+	where $\Pi$ is the Poisson bi-vector. One calls $\mathscr{O}_X[[\hbar]]$ equipped with the Moyal-Weyl star product, the \textit{Weyl algebra}.
+\end{definition}
+\begin{remark}\label{rem:weyl-algebra}
+	The notation Weyl algebra in \cref{def:weyl-moyal} is supported in the following observation. Consider the subalgebra $(\C[p,q], \star)$\footnote{Here $p$ and $q$ are shorthand for coordinates $(p_{1}, \ldots, p_{n}, q_{1}, \ldots, q_{n})$} of the algebra $(\mathscr{O}_{\R^{2n}}(\R^{2n}), \star)$. An easy computation yields 
+	\[
+		p_{r} \star q_{s} = p_{s}q_{s} + \delta_{rs}\frac{i\hbar}{2} \quad \text{and,} \quad q_{s} \star p_{r} = p_{r}q_{s} - \delta_{sr}\frac{i\hbar}{2}.
+	\]
+	Therefore,
+	\[
+		[p_{r},q_{s}] = \delta_{rs}i\hbar,
+	\]
+	which is \textit{Planck’s law}. Particularly, this presents an isomorphism between $(\C[p,q],\star)$ and\footnote{We mantain the same shorthand as before, and we extend it correctly to $x\partial - \partial x - 1$} $\C\{x,\partial\}/\left\langle x\partial - \partial x - 1\right\rangle$, also known as the Weyl algebra. This will be further explained by the identification of $\R^{2n}$ with $T^{*}\R^{n}$ and deformation quantization of the cotangent bundle. In the meantime, this identification is proven useful in the following Lemma. \todo{write reference when cotangent bundle is explained.}
+\end{remark}
+\begin{lemma}\label{lemm:center-weyl-algebra}
+	The center of the algebra $\C\{x,\partial\}/\left\langle x\partial - \partial x - 1\right\rangle$ is $\C$. In particular, from \cref{rem:weyl-algebra}, it follows that the center of $(\mathscr{O}_{\R^{2n}}, \star)$ is $\C[[t]]$.
+\end{lemma}
+\begin{proof}
+	We carry out the case $n=1$. Let $P = \sum_{a}f_{a}(x)\partial^{a}$ be a central element. An easy calculation, using the fact that $[\partial, f] = f'$, yields
+	\[
+		[\partial, P] = \sum_{a}f_{a}'(x)\partial^{a}.
+	\]
+	Since $P$ is central, we conclude that $f_{a}' = 0$, so that $f_{a}$ is a constant for all $a$. Therefore, $P = g(\partial)$ for some polynomial $g$. Again, we have
+	\[
+		[x, g(\partial)] = g'(\partial)
+	\]
+	and centrality yields that $P$ is constant. The previous proof only uses that the ground ring of the Weyl algebra is of characteristic zero, so that one carries inductively using $\C[x, \partial_{x}][y_{1}, \ldots, y_{m}, \partial_{1}, \ldots, \partial_{m}] \cong \C[x, y_{1}, \ldots, y_{m}, \partial_{x}, \partial_{1}, \ldots, \partial_{m}].$
+\end{proof}
+
+\section{DQ-algebras}
+See Kashiwara-Schapira.
+\section{DQ-algebroids}
+See Kashiwara-Schapira. Important here to include some motivation. 

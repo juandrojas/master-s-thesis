@@ -1,0 +1,29 @@
+%!TEX root = main.tex
+\chapter*{Abstract}\label{ch:abstract}
+Cuantización por deformación para una variedad de Poisson se define en términos de un producto estrella; es decir, es una deformación uniparamétrica del haz de (\textit{sheaf of}) álgebras de funciones suaves. Recordamos la idea esencial. Sea $(X, \mathscr{O}_{X})$ una variedad simpléctica, un producto asociativo $\star$ en $\mathscr{O}_X[[\hbar]]$, dónde $\hbar$ es un indeterminado, es un \textit{producto estrella} si es $\mathbb{C}[[\hbar]]$-bilineal y satisface
+\[
+        f \star g = \sum_{i\geq 0}P_i(f,g)\hbar^i\, \text{ para }f,g\in\mathscr{O}_X,
+        \]
+       	dónde $P_i$ son operadores bi-diferenciales tales que $P_0(f,g) = fg$ y $P_i(f,1) = P_i(1,f) = 0$. Un producto estrella define una estructura de Poisson mediante la regla
+        \[
+        \{f,g\} := P_1(f,g) - P_1(g,f) = \frac{f\star g - g\star f}{\hbar} \text{ mod } \hbar\mathscr{O}_X.
+        \]
+Si $X$ es Poisson y $\star$ induce el corchete de Poisson correspondiente en $X$, decimos que $\star$ \textit{deforma} la estructura de Poisson de $X$. B. V. Fedosov (1985) y De Wilde-Lecomte (1983, 1985) demostraron, de manera independiente, que el caso simpléctico admite tal deformación de su corchete de Poisson simpléctico.
+
+A diferencia de variedades de Poisson generales, para variedades simplécticas el teorema de Darboux asegura una estructura local simple: localmente toda variedad simpléctica admite un sistema de coordenadas (llamadas coordenadas de Darboux) $(q_i, p_i)$ en las cuales la forma simpléctica toma la forma
+\[
+    \omega = \sum dq_i \wedge dp_i.
+\]
+Estas coordenadas admiten una deformación conocida como el producto de \textit{Moyal-Weyl}  \[
+    f \star g=\operatorname{prod}(\exp (\hbar \pi)(f \otimes g))=f \cdot g+\hbar\{f, g\}+\cdots
+    \]
+dónde $\pi$ es el bi-vector de Poisson.    
+
+En \cite{deligne-deformations} P. Deligne comparó las construcciones de B. V. Fedosov y De Wilde-Lecomte y produjo resultados sobre la equivalencia de ambos productos estrelllas en el lenguaje de cohomología no abeliana usando cociclos de Čech. La idea esencial consiste en introducir estructuras asociadas a un producto estrella
+\begin{enumerate}[label = (\roman*)]
+	\item Observe que la inclusión $\mathbb{C}[[\hbar]] \to \mathscr{O}_X[[\hbar]]$ es inyectiva y sobreyecta al centro, de tal manera que $\mathbb{C}[[\hbar]] \simeq \operatorname{Z}(\mathscr{O}_X[[\hbar]])$. Estudiamos el problema de encontrar $\mathbb{C}[[t]]$-derivaciones de $\mathscr{O}_X[[\hbar]]$ que se restringen al campo de Euler $\hbar\partial_\hbar$. Esto es precisamente preguntar cuándo la dilatación $(p,q,\hbar) \to (\lambda^{1/2}p, \lambda^{1/2}q, \lambda \hbar)$ forma un subgrupo uniparamétrico de automorfismos de $(\mathscr{O}_X[[t]],\star)$. A esta propiedad la llamamos \textit{equivarianza por dilatación};
+	\item La involución $\hbar \to -\hbar$ induce un producto opuesto $\star_{-\hbar}$. Decimos que un producto estrella $\star$ es \textit{invariante bajo transposición} si $f \star_{-\hbar} g = g \star_{\hbar} f$,
+\end{enumerate}
+y notar que el producto de Moyal-Weyl satisface ambas propiedades y es caracterizado por ellas. Este hecho junto con el teorema de Darboux reduce el problema de clasificación de productos estrellas a un problema de cohomología con coeficientes no abelianos. En adición, de los trabajos de M. Kontsevich \cite{kontsevich} y M. Kashiwara \cite{Kashiwara-contact} se volvió evidente que el contexto más general de \textit{stacks} de algebroides permite un desarrollo más natural de la teoría. De esta forma se introdujo a la noción de \textit{DQ-algebroide} debida a M. Kashiwara y P. Schapira \cite{DQM}. 
+
+El objetivo de este trabajo es producir una clasificación de DQ-algebroides simplécticos mediante la introducción de las estructuras previamente mencionadas y el lenguaje de \cite{quasi-classical}.
