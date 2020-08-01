@@ -1,3 +1,123 @@
 %!TEX root = ../../main.tex
 \chapter{Abstract nonsense}\label{app:abstract-nonsense}
-Once and for all fix a strongly inaccesible cardinal $\kappa$, so that $V_{\kappa}$ is a Grothendieck universe. (hahaha)
+Throughout this appendix we assume familiarity with basic category theory, basic sheaf theory and the definition of a (strict) 2-category. We denote by $\circ$ horizontal composition and by $\diamond$ vertical composition. The main reference will be \cite{breen}. 
+% \section{2-Categories}
+% \begin{definition}\label{def:2-category}
+% 	A \textit{(strict) 2-category} $\mathcal{C}$ consists of:
+% 	\begin{enumerate}[label = (\roman*)]
+% 		\item A collection of \textit{0-cells} or objects.
+% 		\item For all objects $A$ and $B$, a category $\mathcal{C}(A,B)$. The objects $f,g\colon A \to B$ are called (1-)\textit{morphisms}, \textit{1-cells} or \textit{arrows}. Natural transformations $\alpha\colon f \Rightarrow g$ are called \textit{2-morphisms} or \textit{2-cells}.
+% 		\item For any object $A$ there is a functor from the terminal category to $\mathcal{C}(A,A)$ sending the unique object to $\id{A}$ and its unique arrow to $\mathbf{1}_{\id{A}}$, the identity natural transformation.
+% 		\item For all objects $A, B$ and $C$, there is a functor $\circ\colon \mathcal{C}(B,C)\times \mathcal{C}(A,B) \to \mathcal{C}(A,C)$ called \textit{horizontal composition} which is associative and admits the identity 1 and 2-cells of $\id{A}$ as identities. 
+% 	\end{enumerate}
+	
+% \end{definition}
+\section{Stacks}\label{sec:stacks}
+Let $X$ be a topological space. We do not provide proofs, but reference the reader to the source \cite[Exposé VI]{SGA1}.
+\subsection{Fibred categories}
+\begin{definition}\label{def:fibred-category}
+	A \textit{fibred category} $\mathcal{C}$ over $X$ is an assignment 
+	\begin{enumerate}[label = (\roman*)]
+		\item for every open set $U \subseteq X$ a category $\mathcal{C}_U$;
+		\item for every inclusion $i\colon V \hookrightarrow U$ an inverse image functor $i^{*}\colon \mathcal{C}_{U} \to \mathcal{C}_{V}$, which may be taken to be the identity functor whenever $f = \id{U}$;
+		\item a natural isomorphism $\tau_{i,j}\colon (i\circ j)^{*} \Rightarrow j^{*} \circ i^{*}$ for every pair of inclusions $W \xhookrightarrow{j} V \xhookrightarrow{i} U$.
+	\end{enumerate}
+	Subject to the condition that the diagram
+	\begin{equation}\label{eqn:fibred-category-compatibility}
+		\begin{tikzcd}
+			(i\circ j \circ k)^{*} \ar[r, Rightarrow, "\tau_{i,j,k}"] \ar[d, Rightarrow, "\tau_{i, j\circ k}"] & k^{*}\circ(i \circ j)^{*} \ar[d, Rightarrow, "k^{*} \circ \tau_{i,j}"] \\
+			(j\circ k)^{*} \circ i^{*} \ar[r, Rightarrow, "\tau_{j, k} \circ i^{*}"] & (k^{*} \circ j^{*} \circ i^{*}),
+		\end{tikzcd}
+	\end{equation}
+	commutes for any three composable arrows $N \xhookrightarrow{k} W \xhookrightarrow{j} V \xhookrightarrow{i} U$. For an object $x \in \mathcal{C}_{U}$, we denote by $x\lvert_{V}$ the inverse image $i^{*}(x)$ for an inclusion $i\colon V \hookrightarrow U$.
+\end{definition}
+\begin{definition}\label{def:morphisms-fibred-categories}
+	Let $\mathcal{C}$ and $\mathcal{D}$ be two fibred categories over $X$. A \textit{morphism} $ (F, \alpha)\colon \mathcal{C} \to \mathcal{D}$ \textit{of fibred categories} consists of
+	\begin{enumerate}[label = (\roman*)]
+		\item for every open set $U \subseteq X$ a functor $ F_{U}\colon \mathcal{C}_{U} \to \mathcal{D}_{U}$ 
+		\item for every inclusion $i\colon V \hookrightarrow V$ a natural isomorphism $\alpha_{i}\colon  F_{V} \circ i^{*} \Rightarrow i^{*} \circ  F_{U}$ 
+	\end{enumerate}
+	subject to the compatibility condition that the diagram
+		\begin{equation}\label{eqn:morphisms-fibred-categories-compatibility}
+		\begin{tikzcd}[column sep = tiny]
+                                                        &  F_{W}\circ (i\circ j)^{*} \arrow[ld, Rightarrow, " F_{W}\circ \tau"] \arrow[rr, Rightarrow, "\alpha_{i\circ j}"] &                                            & (i \circ j)^{*} \circ  F_{U} \arrow[rd, Rightarrow, "\tau \circ  F_U"] &                                 \\
+ F_{W}\circ j^{*} \circ i^{*} \arrow[rrd, Rightarrow, "\alpha_{j}\circ i^{*}"] &                                                                            &                                            &                                                       & j^{*}\circ i^{*} \circ  F_{U} \\
+                                                        &                                                                            & j^{*}\circ F_{V}, \arrow[rru, Rightarrow, "j^{*}\circ \alpha_{i}"] &                                                       &                                
+		\end{tikzcd}
+		\end{equation}
+		where $\tau$ denotes the corresponding natural isomorphism for $\mathcal{C}$ and $\mathcal{D}$, commutes for all inclusions $W \xhookrightarrow{j} V \xhookrightarrow{i} U$. 	
+\end{definition}
+\begin{definition}\label{def:weak-equivalence}
+	A fibred morphism $(F, \alpha)\colon \mathcal{C} \to \mathcal{D}$ is called a \textit{weak equivalence} if every $F_{U}$ is fully faithful and \emph{locally surjective}; that is, for every $U$ open subset of $X$, $y$ of $\mathcal{D}_{U}$, and $p \in X$ there exists an object $x$ of $\mathcal{C}_{U}$ and an open neighborhood $V$ of $p$ contained in $U$ such that $F_{V}(x) \cong y\lvert_{V}$.
+\end{definition}
+\begin{definition}\label{def:fibred-transformation}
+	Given two fibred morphisms $(F,\alpha),(G,\beta)\colon \mathcal{C} \to \mathcal{D}$, a \emph{fibred transformation} (or simply \textit{2-morphism}) $\Psi\colon F \Rightarrow G$ is a collection of natural transformations $\Psi_{U}\colon F_{U} \Rightarrow G_{U}$ indexed by open sets $U\subseteq X$ subject to the following compatibility condition: for any inclusion $i\colon V \hookrightarrow U$, the diagram of natural transformations 
+	\begin{equation}\label{eqn:fibred-transformation-compatibility}
+	\begin{tikzcd}
+		F_{V} \circ i^{*} \ar[r, Rightarrow, "\alpha_{i}"] \ar[d, Rightarrow, "\Psi_{V} \circ i^{*}"] & i^{*} \circ F_{U} \ar[d, Rightarrow, "i^{*}\circ \Psi_{U}"] \\
+		G_{V} \circ i^{*} \ar[r, Rightarrow, "\beta_{i}"] &  i^{*}\circ G_{U} 
+	\end{tikzcd}
+	\end{equation}
+	commutes.
+\end{definition}
+\begin{remark}\label{rem:fibred-categories-form-a-2-category}
+	Fibred categories over $X$ form a 2-category with objects as in \cref{def:fibred-category}, 1-morphisms as in \cref{def:morphisms-fibred-categories}, and 2-morphisms as in \cref{def:fibred-transformation}. We denote this 2-category by $\mathsf{Fibred}_{X}$.
+\end{remark}
+\begin{remark}\label{rem:presheaf-defined-by-fibred-category}
+	Let $U$ be an open subset of $X$ and $x,y$ objects of $\mathcal{C}_{U}$. The assignment $V \to \mathcal{C}_{V}(x\lvert_{V}, y\lvert_{V})$ defines a presheaf on $U$. Moreover, every morphism $F\colon \mathcal{C} \to \mathcal{D}$ induces a morphism at the level of presheaves.
+\end{remark}
+\begin{definition}\label{def:prestack}
+	A fibred category $\mathcal{C}$ over $X$ is a \textit{prestack on} $X$ if for every $U$ and every pair $x,y$ of objects of $\mathcal{C}_{U}$ the presheaf on \cref{rem:presheaf-defined-by-fibred-category} is a sheaf. The full 2-subcategory of $\mathsf{Fibred}_{X}$ made of prestacks is denoted by $\mathsf{Prestacks}_{X}$.
+\end{definition}
+\begin{remark}\label{rem:associated-prestack-of-a-fibred-category}
+	Every fibred category $\mathcal{C}$ admits an \textit{associated prestack}, in the sense of a left 2-adjoint for
+	\[
+		\mathsf{Prestacks}_{X} \hookrightarrow \mathsf{Fibred}_{X}.
+	\]
+	Indeed, consider the associated sheaf (also known as sheafification) to the presheaf in \cref{rem:presheaf-defined-by-fibred-category}. The usual adjointness associated sheaf $\dashv$ presheaf extends to the desired 2-adjointness. 
+\end{remark}
+\begin{definition}\label{def:descend-data}
+	Let $\mathcal{C}$ be a fibred category over $X$ and $\mathscr{U} = \{U_{\alpha}\}_{\alpha\in A}$ be an open cover of an open set $U\subseteq X$. The category $\mathrm{Desc}(\mathscr{U}, \mathcal{C})$ of \emph{descent data} consists of
+	\begin{enumerate}[label = (\roman*)]
+		\item as objects: pairs of collections $(x,\varphi) = (\{x_{\alpha}\}_{\alpha\in A}, \{\varphi_{\alpha\beta}\}_{\alpha, \beta\in A})$ where $x_{\alpha}$ is an object of $\mathcal{C}_{\alpha}$ and $\varphi_{\alpha\beta}\colon x_{\beta}\lvert_{U_{\alpha\beta}} \xrightarrow{\sim} x_{\alpha}\lvert_{U_{\alpha\beta}}$ an isomorphism. These are subject to the cocycle condition
+		\begin{equation}\label{eqn:cocycle-condition}
+			\varphi_{\alpha\beta} \circ \varphi_{\beta\gamma} = \varphi_{\alpha\gamma}
+		\end{equation}
+		in $\mathcal{C}_{U_{\alpha\beta\gamma}}$, for each $\alpha, \beta$ and $\gamma$ in $A$.
+		\item as arrows: $(x, \varphi) \xrightarrow{f} (y, \psi)$ a set of arrows $\{f_{\alpha}\colon x_{\alpha} \to y_{\alpha}\}_{\alpha\in A}$ such that the diagram
+		\begin{equation}\label{eqn:compatibility-descent-data}
+			\begin{tikzcd}
+				x_{\beta}\lvert_{U_{\alpha\beta}} \ar[r, "f_{\beta}"] \ar[d, "\varphi_{\alpha \beta}"] & y_{\beta}\lvert_{U_{\alpha\beta}} \ar[d, "\psi_{\alpha \beta}"] \\
+				x_{\alpha}\lvert_{U_{\alpha\beta}} \ar[r, "f_{\alpha}"] & x_{\alpha}\lvert_{U_{\alpha\beta}} 
+			\end{tikzcd}
+		\end{equation}
+		
+	\end{enumerate}
+	
+\end{definition}
+\begin{remark}\label{rem:fibred-category-induces-descent}
+	Let $\mathcal{C}$ be a fibred category over $X$, $U$ an open set of $X$, and $\mathscr{U}$ a cover of $U$. There is a natural functor $\mathcal{C}_{U} \to \mathrm{Desc}(\mathscr{U}, \mathcal{C})$ sending $x \mapsto (\{x\lvert_{U_{\alpha}}\}_{\alpha\in A}, \{\id{x}\lvert_{U_{\alpha\beta}}\}_{\alpha,\beta\in A})$ and $f\colon x \to y \mapsto \{f\lvert_{U_{\alpha}}\colon x\lvert_{U_{\alpha}} \to y\lvert_{U_{\alpha}}\}_{\alpha\in A}$. Then $\mathcal{C}$ is a prestack if and only if this functor is fully faithful for all open sets $U$ and all covers $\mathscr{U}$ of $U$.
+\end{remark}
+\begin{definition}\label{def:stack}
+	A fibred category $\mathcal{C}$ over $X$ is a \textit{stack on} $X$ if for every open subset $U$ of $X$ and every cover $\mathscr{U}$ of $U$ the functor $\mathcal{C}_{U} \to \mathrm{Desc}(\mathscr{U}, \mathcal{C})$ on \cref{rem:fibred-category-induces-descent} is an equivalence of categories. If in addition each category $\mathcal{C}_{U}$ is a groupoid, we say that $\mathcal{C}$ is \textit{stack in groupoids.} We denote the full 2-subcategory of stacks on $X$ by $\mathsf{Stacks}_{X}$.
+\end{definition}
+\begin{definition}\label{def:associated-stack}
+	Let $\mathcal{C}$ be a prestack on $X$. The \textit{associated stack} is a stack $\mathcal{C}$, endowed with a weak equivalence $\mathcal{C} \to \mathcal{C}^{+}$ such that for every open subset $U$ of $X$ and any pair of objects $x$ and $y$ of $\mathcal{C}_{U}$ the map
+		\[
+			\mathcal{C}_{U}(x,y) \to \mathcal{C}^{+}_{U}(F_{U}(x), F_{U}(y))
+		\]
+	is a bijection. If $\mathcal{C}^{+}$ exists it is determined up to unique 2-isomorphism. 
+\end{definition}
+\begin{proposition}\label{prop:stackification}
+	Let $\mathcal{C}$ be a prestack on $X$, then $\mathcal{C}$ admits an associated stack. 
+\end{proposition}
+\begin{proof}
+	Let $\mathcal{C}^{+}_{U} := \colim_{\mathscr{U}}\mathrm{Desc}(\mathscr{U}, \mathcal{C})$ understood as a pseudo-colimit of categories. For details see \cite[\href{https://stacks.math.columbia.edu/tag/02ZN}{Tag 02ZN}]{stacks-project}. 
+\end{proof}
+
+
+\section{Algebroids}
+This section tries to follow \cite[Section 1]{dagnolo-polesello_complex-involutive-submanifolds}. Let $\mathbb{K}$ be a commutative unital ring.
+\begin{definition}\label{def:linear-category}
+	A $\mathbb{K}$-\emph{linear category} (which we shorthand as $\mathbb{K}$-category) is a category whose $\operatorname{Hom}$ sets are endowed with a $\mathbb{K}$-module structure, so that composition is bilinear. A $\mathbb{K}$-\emph{functor} is a functor between $\mathbb{K}$-categories which is linear at the level of morphisms.
+\end{definition}

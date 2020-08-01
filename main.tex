@@ -82,6 +82,7 @@
 \usepackage{tikz-cd}
 \usepackage{enumitem} % activates custom enumeration
 \usepackage{mathtools}
+\usepackage{eucal}
 \usetikzlibrary{arrows, matrix}
 
 \chapterstyle{Forder}
@@ -104,7 +105,7 @@
 
 % Enviroments 
 
-\numberwithin{align}{chapter}
+\numberwithin{equation}{chapter}
 
 \theoremstyle{definition}
 \newtheorem{definition}[equation]{Definition}
@@ -121,7 +122,7 @@
 \newtheorem{remark}[equation]{Remark}
 
 
-
+\newcommand{\id}[1]{\operatorname{id}_{#1}}
 
 %% MATH OPS
 
@@ -131,11 +132,19 @@
 \def\Q{{\mathbb Q}}
 \def\R{{\mathbb R}}
 \def\C{{\mathbb C}}
-\def\O{{\mathcal O}}
+\def\O{{\mathscr O}}
+\def\A{{\mathbb A}}
+
+\newcommand{\hbarr}[0]{[[\hbar]]}
 
 %% auxiliary
 
 \DeclareMathOperator{\Der}{Der}
+
+\DeclareMathOperator*{\colim}{co{\lim}}
+\makeatletter
+\patchcmd{\varlim@}{lim}{\lim}{}{}
+\makeatother
 
 \begin{document}
 
