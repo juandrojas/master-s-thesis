@@ -23,17 +23,17 @@
     \end{align}
 	where $\Pi$ is the Poisson bi-vector. One calls $\mathscr{O}_X[[\hbar]]$ equipped with the Moyal product, the \textit{Weyl algebra}.
 \end{definition}
-\begin{remark}\label{rem:weyl-algebra}
-	The notation Weyl algebra in \cref{def:moyal} is supported in the following observation. Consider the subalgebra $(\C[p,q], \star)$\footnote{Here $p$ and $q$ are shorthand for coordinates $(p_{1}, \ldots, p_{n}, q_{1}, \ldots, q_{n})$} of the algebra $(\mathscr{O}_{\R^{2n}}(\R^{2n}), \star)$. An easy computation yields 
-	\[
-		p_{r} \star q_{s} = p_{s}q_{s} + \delta_{rs}\frac{\hbar}{2} \quad \text{and,} \quad q_{s} \star p_{r} = p_{r}q_{s} - \delta_{sr}\frac{\hbar}{2}.
-	\]
-	Therefore,
-	\[
-		[p_{r},q_{s}]_{\star} = \delta_{rs}\hbar.
-	\]
-	Particularly, this presents an isomorphism between $(\C[p,q],\star)$ and\footnote{We mantain the same shorthand as before, and we extend it correctly to $x\partial - \partial x - 1$} $\C\{x,\partial\}/\left\langle x\partial - \partial x - 1\right\rangle$, also known as the Weyl algebra. This will be further explained by the identification of $\R^{2n}$ with $T^{*}\R^{n}$ and deformation quantization of the cotangent bundle.
-\end{remark}
+% \begin{remark}\label{rem:weyl-algebra}
+% 	The notation Weyl algebra in \cref{def:moyal} is supported in the following observation. Consider the subalgebra $(\C[p,q], \star)$\footnote{Here $p$ and $q$ are shorthand for coordinates $(p_{1}, \ldots, p_{n}, q_{1}, \ldots, q_{n})$} of the algebra $(\mathscr{O}_{\R^{2n}}(\R^{2n}), \star)$. An easy computation yields 
+% 	\[
+% 		p_{r} \star q_{s} = p_{s}q_{s} + \delta_{rs}\frac{\hbar}{2} \quad \text{and,} \quad q_{s} \star p_{r} = p_{r}q_{s} - \delta_{sr}\frac{\hbar}{2}.
+% 	\]
+% 	Therefore,
+% 	\[
+% 		[p_{r},q_{s}]_{\star} = \delta_{rs}\hbar.
+% 	\]
+% 	Particularly, this presents an isomorphism between $(\C[p,q],\star)$ and\footnote{We mantain the same shorthand as before, and we extend it correctly to $x\partial - \partial x - 1$} $\C\{x,\partial\}/\left\langle x\partial - \partial x - 1\right\rangle$, also known as the Weyl algebra. This will be further explained by the identification of $\R^{2n}$ with $T^{*}\R^{n}$ and deformation quantization of the cotangent bundle.
+% \end{remark}
 \begin{lemma}\label{lemm:center-weyl-algebra}
 	The center of the algebra $(\mathscr{O}_{\R^{2n}}, \star)$ is $\C[[\hbar]]$. 
 \end{lemma}
@@ -57,9 +57,11 @@ Choose $a, b \in \mathscr{A}$ such that $\sigma_{0}(a) = f$ and $\sigma_{0}(b) =
 		\{f,g\} := \sigma_{0}\left(\frac{ab - ba}{\hbar}\right).
 \end{align}
 Since $\sigma_{0}(\hbar\mathscr{A}) = 0$, it follows that \eqref{eqn:poisson-induced-by-dq-algebra} is independent of the choice of liftings. Moreover, any two locally isomorphic DQ-algebras induce the same Poisson structure. Whenever $X$ is symplectic, we say that $\mathscr{A}$ is \emph{symplectic} if it is locally isomorphic to a symplectic star-algebra.
-
-
 \section{DQ-algebroids}
+\begin{definition}[{\cite[Definition 2.3.1]{DQM}}]\label{def:dq-algebroid}
+	A \textit{DQ-algebroid} $\mathcal{C}$ on $X$ is a $\C\hbarr$-algebroid stack (see \cref{def:algebroid-stack}) such that for each open set $U \subseteq X$ and each object $L$ of $\mathcal{C}(U)$, the sheaf of $\C\hbarr$-algebras $\uEnd_{\mathcal{C}_{U}}(L)$ is a DQ-algebra on $U$.
+\end{definition}
+Via \eqref{eqn:poisson-induced-by-dq-algebra} and local conectedness (see \cref{def:locally-connected}) every DQ-algebroid $\mathcal{C}$ induces a Poisson structure on $X$.
 \subsection{Symplectic DQ-algebroids}
 \begin{definition}\label{def:symplectic-DQ-algebroid} 
 	

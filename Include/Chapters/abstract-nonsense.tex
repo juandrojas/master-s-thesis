@@ -1,6 +1,7 @@
 %!TEX root = ../../main.tex
 \chapter{Abstract nonsense}\label{app:abstract-nonsense}
-Throughout this appendix we assume familiarity with basic category theory, basic sheaf theory and the definition of a (strict) 2-category. We denote by $\circ$ horizontal composition and by $\diamond$ vertical composition. The main reference will be \cite{breen}. 
+Throughout this appendix we assume familiarity with basic category theory and basic sheaf theory.
+% It is important to remark that for a \textit{category} $\mathcal{C}$ and a pair of objects $x,y$ we will not require the collection of morphisms $\mathcal{C}(x,y)$ to be a set, whenever we require this condition we will say that $\mathcal{C}$ is \textit{locally small}. We denote the category of all categories\footnote{without running into paradoxes} by $\mathsf{CAT}$ and the locally small category of small categories by $\mathsf{Cat}$.
 % \section{2-Categories}
 % \begin{definition}\label{def:2-category}
 % 	A \textit{(strict) 2-category} $\mathcal{C}$ consists of:
@@ -13,28 +14,27 @@ Throughout this appendix we assume familiarity with basic category theory, basic
 	
 % \end{definition}
 \section{Stacks}\label{sec:stacks}
-Let $X$ be a topological space. We do not provide proofs, but reference the reader to the source \cite[Exposé VI]{SGA1}.
-\subsection{Fibred categories}
+We do not provide proofs, but reference the reader to the source \cite[Exposé VI]{SGA1}.
 \begin{definition}\label{def:fibred-category}
 	A \textit{fibred category} $\mathcal{C}$ over $X$ is an assignment 
 	\begin{enumerate}[label = (\roman*)]
-		\item for every open set $U \subseteq X$ a category $\mathcal{C}_U$;
-		\item for every inclusion $i\colon V \hookrightarrow U$ an inverse image functor $i^{*}\colon \mathcal{C}_{U} \to \mathcal{C}_{V}$, which may be taken to be the identity functor whenever $f = \id{U}$;
+		\item for every open set $U \subseteq X$ a category $\mathcal{C}(U)$;
+		\item for every inclusion $i\colon V \hookrightarrow U$ an inverse image functor $i^{*}\colon \mathcal{C}(U) \to \mathcal{C}(V)$, which may be taken to be the identity functor whenever $f = \id{U}$;
 		\item a natural isomorphism $\tau_{i,j}\colon (i\circ j)^{*} \Rightarrow j^{*} \circ i^{*}$ for every pair of inclusions $W \xhookrightarrow{j} V \xhookrightarrow{i} U$.
 	\end{enumerate}
 	Subject to the condition that the diagram
 	\begin{equation}\label{eqn:fibred-category-compatibility}
 		\begin{tikzcd}
-			(i\circ j \circ k)^{*} \ar[r, Rightarrow, "\tau_{i,j,k}"] \ar[d, Rightarrow, "\tau_{i, j\circ k}"] & k^{*}\circ(i \circ j)^{*} \ar[d, Rightarrow, "k^{*} \circ \tau_{i,j}"] \\
-			(j\circ k)^{*} \circ i^{*} \ar[r, Rightarrow, "\tau_{j, k} \circ i^{*}"] & (k^{*} \circ j^{*} \circ i^{*}),
+			(i\circ j \circ k)^{*} \ar[r, Rightarrow, "\tau_{i \circ j,k}"] \ar[d, Rightarrow, "\tau_{i, j\circ k}"] & k^{*}\circ(i \circ j)^{*} \ar[d, Rightarrow, "k^{*} \circ \tau_{i,j}"] \\
+			(j\circ k)^{*} \circ i^{*} \ar[r, Rightarrow, "\tau_{j, k} \circ i^{*}"] & k^{*} \circ j^{*} \circ i^{*},
 		\end{tikzcd}
 	\end{equation}
-	commutes for any three composable arrows $N \xhookrightarrow{k} W \xhookrightarrow{j} V \xhookrightarrow{i} U$. For an object $x \in \mathcal{C}_{U}$, we denote by $x\lvert_{V}$ the inverse image $i^{*}(x)$ for an inclusion $i\colon V \hookrightarrow U$.
+	commutes for any three composable arrows $N \xhookrightarrow{k} W \xhookrightarrow{j} V \xhookrightarrow{i} U$. For an object $x$ of $\mathcal{C}(U)$, we denote by $x\lvert_{V}$ the inverse image $i^{*}(x)$ for an inclusion $i\colon V \hookrightarrow U$.
 \end{definition}
 \begin{definition}\label{def:morphisms-fibred-categories}
 	Let $\mathcal{C}$ and $\mathcal{D}$ be two fibred categories over $X$. A \textit{morphism} $ (F, \alpha)\colon \mathcal{C} \to \mathcal{D}$ \textit{of fibred categories} consists of
 	\begin{enumerate}[label = (\roman*)]
-		\item for every open set $U \subseteq X$ a functor $ F_{U}\colon \mathcal{C}_{U} \to \mathcal{D}_{U}$ 
+		\item for every open set $U \subseteq X$ a functor $ F_{U}\colon \mathcal{C}(U) \to \mathcal{D}(U)$ 
 		\item for every inclusion $i\colon V \hookrightarrow V$ a natural isomorphism $\alpha_{i}\colon  F_{V} \circ i^{*} \Rightarrow i^{*} \circ  F_{U}$ 
 	\end{enumerate}
 	subject to the compatibility condition that the diagram
@@ -48,7 +48,7 @@ Let $X$ be a topological space. We do not provide proofs, but reference the read
 		where $\tau$ denotes the corresponding natural isomorphism for $\mathcal{C}$ and $\mathcal{D}$, commutes for all inclusions $W \xhookrightarrow{j} V \xhookrightarrow{i} U$. 	
 \end{definition}
 \begin{definition}\label{def:weak-equivalence}
-	A fibred morphism $(F, \alpha)\colon \mathcal{C} \to \mathcal{D}$ is called a \textit{weak equivalence} if every $F_{U}$ is fully faithful and \emph{locally surjective}; that is, for every $U$ open subset of $X$, $y$ of $\mathcal{D}_{U}$, and $p \in X$ there exists an object $x$ of $\mathcal{C}_{U}$ and an open neighborhood $V$ of $p$ contained in $U$ such that $F_{V}(x) \cong y\lvert_{V}$.
+	A fibred morphism $(F, \alpha)\colon \mathcal{C} \to \mathcal{D}$ is called a \textit{weak equivalence} if every $F_{U}$ is fully faithful and \emph{locally surjective}; that is, for every $U$ open subset of $X$, $y$ of $\mathcal{D}(U)$, and $p \in X$ there exists an object $x$ of $\mathcal{C}(U)$ and an open neighborhood $V$ of $p$ contained in $U$ such that $F_{V}(x) \cong y\lvert_{V}$.
 \end{definition}
 \begin{definition}\label{def:fibred-transformation}
 	Given two fibred morphisms $(F,\alpha),(G,\beta)\colon \mathcal{C} \to \mathcal{D}$, a \emph{fibred transformation} (or simply \textit{2-morphism}) $\Psi\colon F \Rightarrow G$ is a collection of natural transformations $\Psi_{U}\colon F_{U} \Rightarrow G_{U}$ indexed by open sets $U\subseteq X$ subject to the following compatibility condition: for any inclusion $i\colon V \hookrightarrow U$, the diagram of natural transformations 
@@ -64,10 +64,10 @@ Let $X$ be a topological space. We do not provide proofs, but reference the read
 	Fibred categories over $X$ form a 2-category with objects as in \cref{def:fibred-category}, 1-morphisms as in \cref{def:morphisms-fibred-categories}, and 2-morphisms as in \cref{def:fibred-transformation}. We denote this 2-category by $\mathsf{Fibred}_{X}$.
 \end{remark}
 \begin{remark}\label{rem:presheaf-defined-by-fibred-category}
-	Let $U$ be an open subset of $X$ and $x,y$ objects of $\mathcal{C}_{U}$. The assignment $V \to \mathcal{C}_{V}(x\lvert_{V}, y\lvert_{V})$ defines a presheaf on $U$. Moreover, every morphism $F\colon \mathcal{C} \to \mathcal{D}$ induces a morphism at the level of presheaves.
+	Let $U$ be an open subset of $X$ and $x,y$ objects of $\mathcal{C}(U)$. The assignment $V \to \mathcal{C}(V)(x\lvert_{V}, y\lvert_{V})$ defines a presheaf on $U$. We denote this presheaf by $\uHom_{\mathcal{C}}(x,y)$. Moreover, every morphism $F\colon \mathcal{C} \to \mathcal{D}$ induces a morphism at the level of presheaves.
 \end{remark}
 \begin{definition}\label{def:prestack}
-	A fibred category $\mathcal{C}$ over $X$ is a \textit{prestack on} $X$ if for every $U$ and every pair $x,y$ of objects of $\mathcal{C}_{U}$ the presheaf on \cref{rem:presheaf-defined-by-fibred-category} is a sheaf. The full 2-subcategory of $\mathsf{Fibred}_{X}$ made of prestacks is denoted by $\mathsf{Prestacks}_{X}$.
+	A fibred category $\mathcal{C}$ over $X$ is a \textit{prestack on} $X$ if for every $U$ and every pair $x,y$ of objects of $\mathcal{C}(U)$ the presheaf $\uHom_{\mathcal{C}}(x,y)$ is a sheaf. The full 2-subcategory of $\mathsf{Fibred}_{X}$ made of prestacks is denoted by $\mathsf{Prestacks}_{X}$.
 \end{definition}
 \begin{remark}\label{rem:associated-prestack-of-a-fibred-category}
 	Every fibred category $\mathcal{C}$ admits an \textit{associated prestack}, in the sense of a left 2-adjoint for
@@ -96,28 +96,131 @@ Let $X$ be a topological space. We do not provide proofs, but reference the read
 	
 \end{definition}
 \begin{remark}\label{rem:fibred-category-induces-descent}
-	Let $\mathcal{C}$ be a fibred category over $X$, $U$ an open set of $X$, and $\mathscr{U}$ a cover of $U$. There is a natural functor $\mathcal{C}_{U} \to \mathrm{Desc}(\mathscr{U}, \mathcal{C})$ sending $x \mapsto (\{x\lvert_{U_{\alpha}}\}_{\alpha\in A}, \{\id{x}\lvert_{U_{\alpha\beta}}\}_{\alpha,\beta\in A})$ and $f\colon x \to y \mapsto \{f\lvert_{U_{\alpha}}\colon x\lvert_{U_{\alpha}} \to y\lvert_{U_{\alpha}}\}_{\alpha\in A}$. Then $\mathcal{C}$ is a prestack if and only if this functor is fully faithful for all open sets $U$ and all covers $\mathscr{U}$ of $U$.
+	Let $\mathcal{C}$ be a fibred category over $X$, $U$ an open set of $X$, and $\mathscr{U}$ a cover of $U$. There is a natural functor $\mathcal{C}(U) \to \mathrm{Desc}(\mathscr{U}, \mathcal{C})$ sending $x \mapsto (\{x\lvert_{U_{\alpha}}\}_{\alpha\in A}, \{\id{x}\lvert_{U_{\alpha\beta}}\}_{\alpha,\beta\in A})$ and $f\colon x \to y \mapsto \{f\lvert_{U_{\alpha}}\colon x\lvert_{U_{\alpha}} \to y\lvert_{U_{\alpha}}\}_{\alpha\in A}$. Then $\mathcal{C}$ is a prestack if and only if this functor is fully faithful for all open sets $U$ and all covers $\mathscr{U}$ of $U$.
 \end{remark}
 \begin{definition}\label{def:stack}
-	A fibred category $\mathcal{C}$ over $X$ is a \textit{stack on} $X$ if for every open subset $U$ of $X$ and every cover $\mathscr{U}$ of $U$ the functor $\mathcal{C}_{U} \to \mathrm{Desc}(\mathscr{U}, \mathcal{C})$ on \cref{rem:fibred-category-induces-descent} is an equivalence of categories. If in addition each category $\mathcal{C}_{U}$ is a groupoid, we say that $\mathcal{C}$ is \textit{stack in groupoids.} We denote the full 2-subcategory of stacks on $X$ by $\mathsf{Stacks}_{X}$.
+	A fibred category $\mathcal{C}$ over $X$ is a \textit{stack on} $X$ if for every open subset $U$ of $X$ and every cover $\mathscr{U}$ of $U$ the functor $\mathcal{C}(U) \to \mathrm{Desc}(\mathscr{U}, \mathcal{C})$ on \cref{rem:fibred-category-induces-descent} is an equivalence of categories. If in addition each category $\mathcal{C}(U)$ is a groupoid, we say that $\mathcal{C}$ is \textit{stack in groupoids.} We denote the full 2-subcategory of stacks on $X$ by $\mathsf{Stacks}_{X}$.
 \end{definition}
 \begin{definition}\label{def:associated-stack}
-	Let $\mathcal{C}$ be a prestack on $X$. The \textit{associated stack} is a stack $\mathcal{C}$, endowed with a weak equivalence $\mathcal{C} \to \mathcal{C}^{+}$ such that for every open subset $U$ of $X$ and any pair of objects $x$ and $y$ of $\mathcal{C}_{U}$ the map
+	Let $\mathcal{C}$ be a prestack on $X$. The \textit{associated stack} is a stack $\mathcal{C}$, endowed with a weak equivalence $F\colon\mathcal{C} \to \mathcal{C}'$ such that for every open subset $U$ of $X$ and any pair of objects $x$ and $y$ of $\mathcal{C}(U)$ the map
 		\[
-			\mathcal{C}_{U}(x,y) \to \mathcal{C}^{+}_{U}(F_{U}(x), F_{U}(y))
+			\mathcal{C}(U)(x,y) \to \mathcal{C}'(U)(F_{U}(x), F_{U}(y))
 		\]
-	is a bijection. If $\mathcal{C}^{+}$ exists it is determined up to unique 2-isomorphism. 
+	is a bijection. If $\mathcal{C}'$ exists it is determined up to unique 2-isomorphism. 
 \end{definition}
 \begin{proposition}\label{prop:stackification}
 	Let $\mathcal{C}$ be a prestack on $X$, then $\mathcal{C}$ admits an associated stack. 
 \end{proposition}
 \begin{proof}
-	Let $\mathcal{C}^{+}_{U} := \colim_{\mathscr{U}}\mathrm{Desc}(\mathscr{U}, \mathcal{C})$ understood as a pseudo-colimit of categories. For details see \cite[\href{https://stacks.math.columbia.edu/tag/02ZN}{Tag 02ZN}]{stacks-project}. 
+	Let $\mathcal{C}'(U) := \colim_{\mathscr{U}}\mathrm{Desc}(\mathscr{U}, \mathcal{C})$ understood as a pseudo-colimit of categories. For details see \cite[\href{https://stacks.math.columbia.edu/tag/02ZN}{Tag 02ZN}]{stacks-project}. 
+\end{proof}
+\begin{remark}\label{rem:stackification-is-faithful-and-locally-full}
+	From the definition of associated stack, the associated stack of a stack is equivalent to itself. Therefore, from general nonsense, we conclude that stackification is faithful. Moreover, since $\mathcal{C} \to \mathcal{C'}$ is fully faithful and locally surjective, then stackification is locally full. 
+\end{remark}
+\todo{Write the correct adjunction or 2-adjunction}
+\section{Algebroid stacks}
+This section tries to follow \cite[Section 1]{dagnolo-polesello_complex-involutive-submanifolds}. Let $\mathbb{K}$ be a commutative unital ring. 
+\begin{definition}\label{def:linear-category}
+	A $\mathbb{K}$-\emph{linear category} is a category whose $\operatorname{Hom}$ sets are endowed with a $\mathbb{K}$-module structure, so that composition is bilinear. A $\mathbb{K}$-\emph{functor} is a functor between $\mathbb{K}$-categories which is linear at the level of morphisms. \todo{write in terms of enriched categories might kill two birds with one shot... linear categories and 2-categories}
+\end{definition}
+\begin{remark}\label{rem:linear-yoneda-lemma}
+	Any $\mathbb{K}$-linear category admits a $\mathbb{K}$-Yoneda embedding, that is, one embeds it on its category of $\mathsf{Mod}(\mathbb{K})$-valued $\mathbb{K}$-functors. 
+\end{remark}
+\begin{example}\label{ex:linear-category-of-modules}
+	Let $A$ be a $\mathbb{K}$-algebra, then the category of left $A$-modules $\mathsf{Mod}(A)$ is a $\mathbb{K}$-category.
+\end{example}
+\begin{example}\label{ex:linear-category-associated-to-an-alegbra}
+	Let $A$ be a $\mathbb{K}$-algebra, we denote by $A^{+}$ the category of one object $\bullet$ such that $A^{+}(\bullet,\bullet) = A$. Given $B$ another $\mathbb{K}$-algebra, any linear map $f\colon A \to B$ induces a $\mathbb{K}$-functor $f^{+}\colon A^{+} \to B^{+}$. This defines a fully faithful functor between $\mathbb{K}$-algebras and (small) $\mathbb{K}$-categories. Moreover, any transformation $f^{+} \Rightarrow g^{+}$ correspond to elements $b\in B$ such that $bf(a) = g(a)b$ for all $a \in A$.
+\end{example}
+These two examples are related by the following proposition.
+\begin{proposition}\label{prop:yoneda-for-linear-categories}
+	Let $A$ be a $\mathbb{K}$-algebra. The category of left $A$-modules $\mathsf{Mod}(A)$ is equivalent to the category of $\mathbb{K}$-functors $\mathsf{Hom}_{\mathbb{K}}(A^{+}, \mathsf{Mod}(\mathbb{K}))$ from $A^{+}$ to the category of left $\mathbb{K}$-modules $\mathsf{Mod}(\mathbb{K})$. Moreover, via the $\mathbb{K}$-Yoneda embedding
+	\[
+		A^{+} \to \mathsf{Hom}_{\mathbb{K}}( (A^{+})^{\op}, \mathsf{Mod}(\mathbb{K}) ) \approx_{\mathbb{K}} \mathsf{Mod}(A^{\op})
+	\]
+	$A^{+}$ is identified with the full subcategory of right $A$-modules which are free of rank one.
+\end{proposition}
+\begin{proof}
+	Given an $A$-module $M$ we may consider the $\mathbb{K}$-functor $A^{+} \to \mathsf{Mod}(\mathbb{K})$ which sends $\bullet \mapsto M_{\mathbb{K}}$, that is $M$ as a $\mathbb{K}$-module, and at the level of morphisms $A \to \mathrm{End}_{\mathbb{K}}(M)$ maps $a$ to multiplication by $a$. On the other hand, given a $\mathbb{K}$-functor $F\colon A^{+} \to \mathsf{Mod}(\mathbb{K})$, the $\mathbb{K}$-module $F(\bullet)$ admits an $A$-structure via the map $A \to \mathrm{End}_{\mathbb{K}}(M)$ given by $F$ at the level of morphisms. These two processes are strictly invertible, and \textit{a fortiori} form an equivalence. The second part is obvious if one notices $(A^{+})^{\op} = (A^{\op})^{+}.$
 \end{proof}
 
-
-\section{Algebroids}
-This section tries to follow \cite[Section 1]{dagnolo-polesello_complex-involutive-submanifolds}. Let $\mathbb{K}$ be a commutative unital ring.
-\begin{definition}\label{def:linear-category}
-	A $\mathbb{K}$-\emph{linear category} (which we shorthand as $\mathbb{K}$-category) is a category whose $\operatorname{Hom}$ sets are endowed with a $\mathbb{K}$-module structure, so that composition is bilinear. A $\mathbb{K}$-\emph{functor} is a functor between $\mathbb{K}$-categories which is linear at the level of morphisms.
+Let $X$ be a topological space. 
+\begin{definition}\label{def:linear-stack}
+	A $\mathbb{K}$-\textit{fibred category} over $X$ is a fibred category $\mathcal{C}$ such that
+	\begin{enumerate}[label = (\roman*)]
+		\item $\mathcal{C}(U)$ is a $\mathbb{K}$-linear category for all $U$;
+		\item $i^{*}\colon \mathcal{C}(U) \to \mathcal{C}(V)$ is a $\mathbb{K}$-functor for all inclusions $V \xhookrightarrow{i} U$.
+	\end{enumerate}
+	Analogously, we extend it to $\mathbb{K}$-\textit{(pre)stacks.} A morphism $(F,\alpha)\colon \mathcal{C} \to \mathcal{D}$ between $\mathbb{K}$-fibred categories is a $\mathbb{K}$-\textit{morphism} if $F$ induces $\mathbb{K}$-functors $F_{U}\colon \mathcal{C}(U) \to \mathcal{D}_{U}$ for all $U$.
 \end{definition}
+\begin{example}\label{ex:linear-stack-associated-to-an-algebra}
+	Let $\mathscr{A}$ be a sheaf of $\mathbb{K}$-algebras. The assignment $U \mapsto \mathscr{A}(U)^{+}$ defines a $\mathbb{K}$-prestack. Indeed, if $\mathscr{A}$ is just a presheaf, then $\mathscr{A}^{+}$ defines a $\mathbb{K}$-fibred category and the 2-morphisms $\tau_{i,j}$ in \cref{def:fibred-category} may be chosen to be the identity natural transformation in a such a way that \eqref{eqn:fibred-category-compatibility} translates that $\mathscr{A}$ defines functor. Moreover, the presheaf on \cref{rem:presheaf-defined-by-fibred-category} for $\mathscr{A}(U)^{+}$ is a sheaf for all $U$ if and only if $\mathscr{A}$ is a sheaf. In addition, a map $f\colon \mathscr{A} \to \mathscr{B}$ of sheaves induces $\mathbb{K}$-morphisms of the corresponding prestacks. In this case, we take $\alpha_{i}$ in \cref{def:morphisms-fibred-categories} to be the identity natural transformation so that 
+	In order to achieve a compact data, we may assume that\eqref{eqn:morphisms-fibred-categories-compatibility} translates that $f$ is a morphism of presheaves. The associated stack to $U \mapsto \mathscr{A}(U)^{+}$ is denoted by $\mathscr{A}^{+}$. From \cref{rem:stackification-is-faithful-and-locally-full} any $\mathbb{K}$-functor $\Phi\colon\mathscr{A}^{+} \to \mathscr{B}^{+}$ is locally induced by a map of $\mathbb{K}$-algebras. More precisely, there exists a cover $\mathscr{U} = \{U_{\alpha}\}_{\alpha}$ of $X$ such that $\Phi\lvert_{U_{\alpha}} = (f_{\alpha})^
+	In order to achieve a compact data, we may assume that{+}$ for some morphism $f_{\alpha}\colon\mathscr{A}\lvert_{U_{\alpha}} \to \mathscr{B}\lvert_{U_{\alpha}}$ of sheaves of $\mathbb{K}$-algebras. 
+\end{example}
+\begin{example}\label{ex:modules-over-sheaf}
+	Let $\mathscr{A}$ be a sheaf of $\mathbb{K}$-algebras. The assignment $U \mapsto \mathsf{Mod}(\mathscr{A}\lvert_{U})$ defines a $\mathbb{K}$-stack on $X$ which we denote by $\mathfrak{Mod}(\mathscr{A})$.
+\end{example}
+These two examples are related by the analogue of \cref{prop:yoneda-for-linear-categories}.
+\begin{proposition}\label{prop:yoneda-for-stacks}
+	Let $\mathscr{A}$ be a sheaf of $\mathbb{K}$-algebras. The stack of left $\mathscr{A}$-modules $\mathfrak{Mod}(\mathscr{A})$ is equivalent to the stack of $\mathbb{K}$-functors $\mathfrak{Hom}_{\mathbb{K}}(\mathscr{A}^{+}, \mathfrak{Mod}(\mathbb{K}_{X}))$ from $\mathscr{A}^{+}$ to the category of left $\mathbb{K}_{X}$-modules $\mathfrak{Mod}(\mathbb{K}_{X})$. Moreover, via the $\mathbb{K}$-Yoneda embedding of stacks
+	\[
+		\mathscr{A}^{+} \to \mathfrak{Hom}_{\mathbb{K}}( (\mathscr{A}^{+})^{\op}, \mathfrak{Mod}(\mathbb{K}_{X}) ) \approx_{\mathbb{K}} \mathfrak{Mod}(\mathscr{A}^{\op})
+	\]
+	$\mathscr{A}^{+}$ is identified with the full substack of right $\mathscr{A}$-modules which are locally free of rank one. \todo{Need to state correctly what does ``stack of $\mathbb{K}$-functors'' for large objects mean}
+\end{proposition}
+\begin{definition}\label{def:non-empty}
+	Let $\mathcal{C}$ be fibred category over $X$. We say that $\mathcal{C}$ is \textit{non-empty} if $\mathcal{C}(X)$ has at least one object. It is \textit{locally non-empty} if there exists an open covering $\mathscr{U} = \{U_{\alpha}\}_{\alpha\in A}$ of $X$ such that $\mathcal{C}\lvert_{U_{\alpha}}$ is non-empty. 
+\end{definition}
+\begin{definition}\label{def:locally-connected}
+	Let $\mathcal{C}$ be a fibred category. We say that $\mathcal{C}$ is \textit{locally connected} if for every open subset $U \subseteq X$ and any pair of objects $x, y$ of $\mathcal{C}(U)$ there exists an open cover $\mathscr{U} = \{U_{\alpha}\}_{\alpha\in A}$ of $U$ such that $x\lvert_{U_{\alpha}} \simeq y\lvert_{U_{\alpha}}$ in $\mathcal{C}(U_{\alpha})$.
+\end{definition}
+\begin{definition}\label{def:algebroid-stack}
+	A $\mathbb{K}$-\emph{algebroid stack} is a $\mathbb{K}$-stack which is locally non-empty and locally connected.
+\end{definition}
+\begin{example}\label{ex:algebroid-stack-defined-by-sheaf}
+	Let $\mathscr{A}$ be a sheaf of $\mathbb{K}$-algebras. The stack $\mathscr{A}^{+}$ is an algebroid stack. Indeed, from \cref{prop:yoneda-for-stacks} $\mathscr{A}^{+}$ is $\mathbb{K}$-equivalent to the stack of locally free right $\mathscr{A}$-modules, which is evidently non-empty and locally connected.
+\end{example}
+The following proposition shows that one cannot strengthen local non-emptiness in \cref{def:algebroid-stack} to global non-emptiness and expect a non-trivial answer, in the sense of \cref{ex:algebroid-stack-defined-by-sheaf}.
+\begin{proposition}[{\cite[Lemma 1.1.]{dagnolo-polesello_complex-involutive-submanifolds}}]\label{prop:non-empty-algebroid-stack-is-trivial}
+	Let $\mathcal{C}$ be a non-empty and locally connected $\mathbb{K}$-stack. For $x$ an object of $\mathcal{C}(X)$, $\mathcal{C}$ is $\mathbb{K}$-equivalent to $\uEnd_{\mathcal{C}}(x)^{+}$.
+\end{proposition}
+\begin{proof}
+	Let $\mathscr{A}$ denote the sheaf of $\mathbb{K}$-algebras $\uEnd_{\mathcal{C}}(x)$. For $U \subseteq X$ an open subset, consider the assignment $y \mapsto \uHom_{\mathcal{C}\lvert_{U}}(x\lvert_{U}, y)$ between $\mathcal{C}(U)$ and right $\mathscr{A}\lvert_{U}$-modules, which are locally free of rank one, defines a $\mathbb{K}$-equivalence $\mathcal{C} \to \mathscr{A}^{+}$ via \cref{prop:yoneda-for-stacks}. Indeed, for the quasi-inverse, send the unique object of $\mathscr{A}(U)^{+}$ to $x\lvert_{U}$ and at the level of morphisms $\mathscr{A}(U) \to \mathcal{C}(U)(x\lvert_{U}, x\lvert_{U})$ is the identity. This induces a map between the associated stack $\mathscr{A}^{+} \to \mathcal{C}$ which is the desired quasi-inverse.
+\end{proof}
+Now, we describe algebroid stacks via local data. Let $\mathcal{C}$ be a $\mathbb{K}$-algebroid stack. By definition, there exists a covering $\mathscr{U} = \{U_{\alpha}\}_{\alpha\in A}$ such that $\mathcal{C}\lvert_{U_{\alpha}}$ is non-empty and locally connected. Let $x_{\alpha}$ be an object of $\mathcal{C}(U_{\alpha})$ and $\mathscr{A}_{\alpha} := \uEnd_{\mathcal{C}\lvert_{U_{\alpha}}}(x_{\alpha})$, from \cref{prop:non-empty-algebroid-stack-is-trivial} we obtain a $\mathbb{K}$-equivalence $\Phi_{\alpha}\colon \mathcal{C}\lvert_{U_{\alpha}} \to \mathscr{A}_{\alpha}^{+}$ with quasi-inverse $\Psi_{\alpha}\colon \mathscr{A}_{\alpha}^{+} \to \mathcal{C}\lvert_{U_{\alpha}}$. On double intersections $U_{\alpha\beta}$ denote by $\Phi_{\alpha\beta}$ the composition $\Phi_{\alpha}\circ\Psi_{\beta}\colon \mathscr{A}_{\beta}^{+}\lvert_{U_{\alpha\beta}} \to \mathscr{A}_{\alpha}^{+}\lvert_{U_{\alpha \beta}}$. On triple intersections $U_{\alpha\beta\gamma}$ the natural isomorphism $\Psi_{\beta}\circ\Phi_{\beta} \Rightarrow \id{\mathcal{C}\lvert_{U_{\alpha\beta}}}$ induces 2-isomorphisms $\theta_{\alpha\beta\gamma}\colon \Phi_{\alpha\beta} \circ \Phi_{\beta\gamma} \Rightarrow \Phi_{\alpha\gamma}$ such that on quadruple intersections $U_{\alpha\beta\gamma\delta}$ the diagram
+\begin{equation}\label{eqn:local-compatibility-algebroid}
+	\begin{tikzcd}
+\Phi_{\alpha\beta}\circ\Phi_{\beta\gamma} \circ \Phi_{\gamma\delta} \arrow[rr, "\theta_{\alpha\beta\gamma} \circ \id{\Phi_{\gamma\delta}}", Rightarrow] \arrow[d, "\id{\Phi_{\alpha\beta}} \circ \theta_{\beta\gamma\delta}", Rightarrow] &  & \Phi_{\alpha\gamma}\circ \Phi_{\gamma\delta} \arrow[d, "\theta_{\alpha\gamma\delta}", Rightarrow] \\
+\Phi_{\alpha\beta}\circ \Phi_{\beta\delta} \arrow[rr, "\theta_{\alpha\beta\delta}", Rightarrow]                                                                              &  & \Phi_{\alpha\delta}                                                                              
+\end{tikzcd}
+\end{equation}
+commutes. From \cref{rem:stackification-is-faithful-and-locally-full} there exists a cover $\mathscr{U}_{\alpha\beta} = \{U_{\alpha\beta}^{i}\}_{i\in I}$ such that $\Phi_{\alpha\beta}\lvert_{U_{\alpha\beta}^{i}} = (f_{\alpha\beta}^{i})^{+}$ for some isomorphisms of $\mathbb{K}$-algebras $f_{\alpha\beta}^{i}\colon \mathscr{A}_{\beta}\lvert_{U_{\alpha\beta}^{i}} \to \mathscr{A}_{\alpha}\lvert_{U_{\alpha\beta}^{i}}$. On triple intersections $U_{\alpha\beta\gamma}^{ijk} = U_{\alpha\beta}^{i}\cap U_{\alpha\gamma}^{j}\cap U_{\beta\gamma}^{k}$ we have 2-isomorphisms $\theta_{\alpha\beta\gamma}\lvert_{U_{\alpha\beta\gamma}^{ijk}}\colon (f_{\alpha\beta}^{i})^{+}\circ (f_{\beta\gamma}^{k})^{+} \Rightarrow (f_{\alpha\gamma}^{j})^{+}$. Therefore, there are sections $a_{\alpha\beta\gamma}^{ijk}\in \mathscr{A_{\alpha}}^{\times}(U_{\alpha\beta\gamma}^{ijk})$ such that 
+\[
+	f_{\alpha\beta}^{i} \circ f_{\beta\gamma}^{k} = \ad(a^{ijk}_{\alpha \beta \gamma})f_{\alpha\gamma}^{j}.
+\]
+On quadruple intersections $U_{\alpha\beta\gamma \delta}^{ijklmn} = U_{\alpha \beta \gamma}^{ijk} \cap U_{\alpha \beta \delta}^{ilm} \cap U_{\alpha \gamma \delta}^{jln}\cap U_{\beta \gamma \delta}^{kmn}$ the diagram \eqref{eqn:local-compatibility-algebroid} translates to the equation
+\[
+	a_{\alpha \beta \gamma}^{ijk}a_{\alpha \beta \gamma}^{jln} = f_{\alpha \beta}^{i}(a_{\beta \gamma \delta}^{kmn})a_{\alpha \beta \delta}^{iln}
+\]
+In order to achieve a compact local description, we may assume that $X$ is paracompact and use fact that hypercoverings are cofinal among coverings \cite[Chapitre II, Lemme 3.8.1.]{Godement}. Therefore, we get the following local characterization
+\begin{proposition}[{\cite[Proposition 2.1.]{dagnolo-polesello_complex-involutive-submanifolds}}, {\cite[Proposition 2.1.3.]{DQM}}]\label{prop:local-data-algebroid}
+	Assume $X$ is paracompact. For gluing datum consisting of
+	\begin{enumerate}[noitemsep, label = (\roman*)]
+		\item an open cover $\mathscr{U} = \{U_{\alpha}\}_{\alpha\in A}$;
+		\item $\mathbb{K}$-algebras $\mathscr{A}_{\alpha}$ on $U_{\alpha}$;
+		\item isomorphisms of $\mathbb{K}$-algebras $f_{\alpha\beta}\colon \mathscr{A}_{\beta} \to \mathscr{A}_{\alpha}$ on $U_{\alpha\beta}$ and;
+		\item sections $a_{\alpha \beta \gamma}\in \mathscr{A}^{\times}(U_{\alpha \beta \gamma})$
+	\end{enumerate}
+	subject to the conditions on morphisms
+	\begin{equation}\label{eqn:gluing-datum-algebroid-morphisms}
+		f_{\alpha\beta} \circ f_{\beta\gamma} = \ad(a_{\alpha \beta \gamma})f_{\alpha\gamma}
+	\end{equation}
+	and on sections
+	\begin{equation}\label{eqn:gluing-datum-algebroid-sections}
+		a_{\alpha \beta \gamma}a_{\alpha \beta \gamma} = f_{\alpha \beta}(a_{\beta \gamma \delta})a_{\alpha \beta \delta}
+	\end{equation}
+	there exists a $\mathbb{K}$-algebroid on $X$ to which this gluing datum is associated. Moreover, the data is unique up to equivalence of stacks, with this equivalence unique up to unique isomorphism.
+	
+\end{proposition}
+
